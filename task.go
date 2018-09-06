@@ -1,6 +1,6 @@
 package main
 
 type Task struct {
-	Title string
-	Description string
+	Title       string `json:"title"`
+	Description string `json:"description"`
 }

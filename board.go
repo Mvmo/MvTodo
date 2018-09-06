@@ -1,7 +1,7 @@
 package main
 
 type Board struct {
-	UniqueId string
-	Password string
-	Tasks []Task
+	UniqueId string `json:"unique_id"`
+	Password string `json:"password"`
+	Tasks    []Task `json:"tasks"`
 }

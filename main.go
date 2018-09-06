@@ -3,25 +3,24 @@ package main
 import (
 	"os"
 	"fmt"
+	"encoding/json"
+	"io/ioutil"
 )
 
 var (
-	databaseFile = "data.json"
+	databaseFilename = "data.json"
+	databaseFile *os.File
 	boardMap = make(map[string]Board)
 )
 
 func init() {
-	if _, err := os.Stat(databaseFile); err != nil {
-		fmt.Println(databaseFile + " doesn't exist - Trying to create ->", err)
-		if file, err := os.Create(databaseFile); err != nil {
-			fmt.Println("Error while creating " + databaseFile + " file -> ", err)
+	if _, err := os.Stat(databaseFilename); err != nil {
+		fmt.Println(databaseFilename + " doesn't exist - Trying to create ->", err)
+		if file, err := os.Create(databaseFilename); err != nil {
+			fmt.Println("Error while creating " + databaseFilename + " file -> ", err)
 		} else {
 			fmt.Println("File successfully created. Trying to write content...")
-			if _, err := file.WriteString("{}"); err != nil {
-				fmt.Println("Error while trying to write into file -> ", err)
-			} else {
-				fmt.Println("File successfully initialized with default json string '{}'")
-			}
+			databaseFile = file
 		}
 	}
 }
@@ -38,4 +37,34 @@ func main() {
 	})
 
 	srv.Start(":8149")*/
+
+
+	/*board := Board{Password: "foo", UniqueId: "entendorf", Tasks: []Task{
+		{
+			Title: "Bug fix #2",
+			Description: "Da ist ein Fehler",
+		},
+		{
+			Title: "Bug fix #1",
+			Description: "Da ist ein Fehler 2ea",
+		},
+		{
+			Title: "Bug fix #5",
+			Description: "Da ist ein Fehler daw",
+		},
+	}}
+
+	boardMap["entendorf"] = board
+
+	b, _ := json.Marshal(boardMap)
+	databaseFile.Write(b)*/
+
+	b, _ := ioutil.ReadFile(databaseFilename)
+	json.Unmarshal(b, &boardMap)
+
+	fmt.Println(boardMap)
+
+	/*c, _ := ioutil.ReadFile(databaseFilename)
+	var j = make(map[string]interface{})
+	json.Unmarshal(c, &j)*/
 }
