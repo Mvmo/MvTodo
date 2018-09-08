@@ -26,42 +26,10 @@ func init() {
 }
 
 func main() {
-	/*srv := echo.New()
-
-	srv.Static("/", "public/")
-
-	apiGroup := srv.Group("/api")
-	apiV1Group := apiGroup.Group("/v1")
-	apiV1Group.GET("/test", func(context echo.Context) error {
-		return context.JSON(200, "IT WORKS")
-	})
-
-	srv.Start(":8149")*/
-
-	/*board := Board{Password: "foo", UniqueId: "entendorf", Tasks: []Task{
-		{
-			Title: "Bug fix #2",
-			Description: "Da ist ein Fehler",
-		},
-		{
-			Title: "Bug fix #1",
-			Description: "Da ist ein Fehler 2ea",
-		},
-		{
-			Title: "Bug fix #5",
-			Description: "Da ist ein Fehler daw",
-		},
-	}}
-
-	boardMap["entendorf"] = board
-
-	b, _ := json.Marshal(boardMap)
-	databaseFile.Write(b)*/
 
 	b, _ := ioutil.ReadFile(databaseFilename)
 	json.Unmarshal(b, &boardMap)
 
-	//fmt.Println(boardMap)
 	for k, v := range boardMap {
 		fmt.Println(k)
 		for _, t := range v.Tasks {
@@ -69,8 +37,4 @@ func main() {
 			fmt.Println("  - " + t.Description)
 		}
 	}
-
-	/*c, _ := ioutil.ReadFile(databaseFilename)
-	var j = make(map[string]interface{})
-	json.Unmarshal(c, &j)*/
 }
