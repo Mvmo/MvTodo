@@ -1,6 +1,5 @@
 {
   "foo": {
-    "unique_id": "foo",
     "password": "bar",
     "tasks": [
       {
